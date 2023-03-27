@@ -4,9 +4,7 @@ const EmptyPage = () => {
   return (
     <>
       <NavBar />
-      <h2 style={{ marginTop: "5rem" }}>
-        fffffffffffffffffffffffffffffffffffffffffff
-      </h2>
+      <h2 style={{ marginTop: "5rem" }}>Welcome to your mail box</h2>
     </>
   );
 };

@@ -9,7 +9,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -79,9 +79,6 @@ const Auth = () => {
             placeholder="Enter email"
             required
           />
-          <Form.Control.Feedback type="invalid">
-            Please provide a valid email.
-          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
@@ -89,12 +86,10 @@ const Auth = () => {
           <Form.Control
             ref={passwordRef}
             type="password"
+            minLength="6"
             placeholder="Password"
             required
           />
-          <Form.Control.Feedback type="invalid">
-            Please provide a password.
-          </Form.Control.Feedback>
         </Form.Group>
         {!isLogin && (
           <Form.Group controlId="formBasicConfirmPassword">
@@ -102,17 +97,21 @@ const Auth = () => {
             <Form.Control
               ref={confirmPasswordRef}
               type="password"
+              minLength="6"
               placeholder="Confirm Password"
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please confirm your password.
-            </Form.Control.Feedback>
           </Form.Group>
         )}
+        {isLogin && <Link to="/reset">Forgot password? click here</Link>}
 
         {!isLoading && (
-          <Button className="mt-2" variant="secondary" type="submit">
+          <Button
+            className="mt-2"
+            variant="secondary"
+            type="submit"
+            style={{ width: "100%" }}
+          >
             {isLogin ? "Click here to Login" : "Create Account"}
           </Button>
         )}

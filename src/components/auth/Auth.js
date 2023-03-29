@@ -60,7 +60,7 @@ const Auth = () => {
         })
       );
       setIsLoading(false);
-      navigate("/empty");
+      navigate("/form");
     } catch (error) {
       alert("login unable, try again");
       setIsLoading(false);

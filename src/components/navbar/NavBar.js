@@ -22,8 +22,8 @@ const NavBar = () => {
         )}
 
         {isAuthenticate && (
-          <Link to="/empty" style={{ color: "white", textDecoration: "none" }}>
-            Empty
+          <Link to="/form" style={{ color: "white", textDecoration: "none" }}>
+            Mymail
           </Link>
         )}
       </Nav>

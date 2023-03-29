@@ -1,0 +1,63 @@
+.my-editor {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.my-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.my-editor-header input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.my-editor-header input:focus {
+  outline: none;
+  box-shadow: 0 0 2px 2px #e0e0e0;
+}
+
+.my-editor-body {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  min-height: 300px;
+}
+
+.my-editor-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.my-editor-footer button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.my-editor-footer button:hover {
+  background-color: #0069d9;
+}
+.rdw-editor-wrapper {
+  border: 1px solid grey !important;
+  border-radius: 5px;
+}
+.rdw-editor-main {
+  min-height: 20vh;
+}
+.mail-container {
+  margin-top: 6rem;
+}

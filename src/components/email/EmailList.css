@@ -1,0 +1,32 @@
+.mailList {
+  cursor: pointer;
+  margin-top: 48px;
+}
+.mailList a {
+  margin-bottom: 1rem;
+}
+
+.mailList a:hover {
+  color: black;
+  background-color: rgb(191, 198, 198);
+}
+.primary {
+  position: sticky;
+  display: flex;
+  flex-direction: row;
+  height: 5vh;
+  box-shadow: 0px 2px 7px black;
+  z-index: 1;
+  margin-top: 4rem;
+}
+.primary h5 {
+  padding: 5px;
+}
+.aUserSecret {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.aUserSecret a {
+  text-decoration: none;
+}

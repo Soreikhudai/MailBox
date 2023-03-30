@@ -4,20 +4,18 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Button, Container, Form } from "react-bootstrap";
 import "./Form.css";
 import { useNavigate } from "react-router-dom";
-import { getAuth } from "firebase/auth";
-import { SoreiApp } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { setEmail } from "../../store/mail";
 import { EditorState } from "draft-js";
+import { getAuth } from "firebase/auth";
 
 const SendForm = () => {
   const dispatch = useDispatch();
-  const auth = getAuth(SoreiApp);
+  const auth = getAuth();
   const [editorState, setEditorState] = useState();
   const [recepient, setRecepient] = useState("");
   const [subject, setSubject] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
 
   const onEditorStateChange = (newEditorState) => {
@@ -33,15 +31,14 @@ const SendForm = () => {
       recepient,
       subject,
       message: editorState.getCurrentContent().getPlainText(),
+      timeStamp: new Date().toDateString(),
     };
-
+    console.log(details);
     try {
       await fetch(
-        `https://react-http-project-da8f6-default-rtdb.firebaseio.com/emails/sent/${auth.currentUser.email
-          .replace("@", "")
-          .replace(".", "")}/${recepient
-          .replace("@", "")
-          .replace(".", "")}.json`,
+        `https://react-http-project-da8f6-default-rtdb.firebaseio.com/emails/sent/${btoa(
+          auth.currentUser.email
+        )}/${btoa(recepient)}.json`,
         {
           method: "POST",
           body: JSON.stringify(details),
@@ -56,11 +53,9 @@ const SendForm = () => {
 
         //-----------------------------------------------------//
         await fetch(
-          `https://react-http-project-da8f6-default-rtdb.firebaseio.com/emails/received/${recepient
-            .replace("@", "")
-            .replace(".", "")}/${auth.currentUser.email
-            .replace("@", "")
-            .replace(".", "")}.json`,
+          `https://react-http-project-da8f6-default-rtdb.firebaseio.com/emails/received/${btoa(
+            recepient
+          )}/${btoa(auth.currentUser.email)}.json`,
           {
             method: "POST",
             body: JSON.stringify(details),
@@ -120,16 +115,15 @@ const SendForm = () => {
             onEditorStateChange={onEditorStateChange}
           />
         </Form.Group>
-        {!isLoading && (
-          <Button variant="primary" type="submit">
-            Send
-          </Button>
-        )}
+
+        <Button variant="primary" type="submit">
+          Send
+        </Button>
 
         <Button
           type="button"
           onClick={() => {
-            navigate("/mail");
+            navigate("/inbox");
           }}
           variant="secondary"
           style={{ marginLeft: "1rem" }}

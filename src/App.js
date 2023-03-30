@@ -17,7 +17,10 @@ const App = () => {
 
           {isAuthenticate && <Route path="/reset" element={<ResetPage />} />}
           {isAuthenticate && <Route path="/form" element={<FormPage />} />}
-          {isAuthenticate && <Route path="/mail" element={<EmailPage />} />}
+          {isAuthenticate && <Route path="/inbox" element={<EmailPage />} />}
+          {isAuthenticate && (
+            <Route path="/inbox/item/*" element={<EmailPage />} />
+          )}
           <Route path="*" element={<HomePage />} />
         </Routes>
       </BrowserRouter>

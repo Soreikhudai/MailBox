@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { SoreiApp } from "../../firebase";
 import Card from "../UI/Card";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
@@ -10,13 +9,13 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { firebaseData } from "../../firebase";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const auth = getAuth(SoreiApp);
+  const auth = getAuth(firebaseData);
   const dispatch = useDispatch();
-
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");

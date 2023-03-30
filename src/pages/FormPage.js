@@ -1,10 +1,10 @@
 import SendForm from "../components/form/Form";
-import NavBar from "../components/navbar/NavBar";
+import Header from "../components/header/Header";
 
 const FormPage = () => {
   return (
     <>
-      <NavBar />
+      <Header />
       <SendForm />
     </>
   );

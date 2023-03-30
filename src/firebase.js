@@ -1,9 +1,5 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDFu8-Vjj_SFNU9d3lO4PE0uqF6xhYUqiU",
   authDomain: "react-http-project-da8f6.firebaseapp.com",
@@ -15,4 +11,4 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const SoreiApp = initializeApp(firebaseConfig);
+export const firebaseData = initializeApp(firebaseConfig);

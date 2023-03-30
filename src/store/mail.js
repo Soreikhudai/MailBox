@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const emailInitialState = {
   email: [],
+  sendMessageIsOpen: false,
 };
 
 const emailSlice = createSlice({
@@ -22,9 +23,23 @@ const emailSlice = createSlice({
       // Set expenses fetched from backend to the state
       state.email = action.payload;
     },
+
+    openSendEmail(state) {
+      state.sendMessageIsOpen = true;
+    },
+    closeSendEmail(state) {
+      state.sendMessageIsOpen = false;
+    },
   },
 });
 
-export const { addEmail, deleteEmail, setEmail } = emailSlice.actions;
+export const {
+  addEmail,
+  deleteEmail,
+  setEmail,
+  openSendEmail,
+  closeSendEmail,
+} = emailSlice.actions;
+export const selectSendMessageIsOpen = (state) => state.email.sendMessageIsOpen;
 
 export default emailSlice.reducer;

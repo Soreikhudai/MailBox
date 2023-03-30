@@ -1,10 +1,18 @@
-import Main from "../components/email/Main";
-import NavBar from "../components/navbar/NavBar";
+import MainPage from "../components/email/MainPage";
+import SideBar from "../components/email/SideBar";
+import Header from "../components/header/Header";
+
 const EmailPage = () => {
   return (
     <>
-      <NavBar />
-      <Main />
+      <Header />
+      <div
+        className="container-fluid"
+        style={{ display: "flex", boxShadow: "grey 0px 2px 6px 5px" }}
+      >
+        <SideBar />
+        <MainPage />
+      </div>
     </>
   );
 };

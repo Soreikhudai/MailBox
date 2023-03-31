@@ -31,9 +31,10 @@ const SendForm = () => {
       recepient,
       subject,
       message: editorState.getCurrentContent().getPlainText(),
-      timeStamp: new Date().toDateString(),
+      timeStamp: new Date().toISOString(),
+      read: false,
     };
-    console.log(details);
+
     try {
       await fetch(
         `https://react-http-project-da8f6-default-rtdb.firebaseio.com/emails/sent/${btoa(

@@ -51,10 +51,10 @@ const Auth = () => {
           password
         );
       }
-
+      console.log(userCredential);
       dispatch(
         authActions.login({
-          token: userCredential.accessToken,
+          token: userCredential.user.accessToken,
           userId: userCredential.user.uid,
         })
       );

@@ -1,14 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import {
-  faBars,
-  faBell,
-  faCloud,
-  faSearch,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
-import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
+  Container,
+  Row,
+  Col,
+  InputGroup,
+  FormControl,
+  Button,
+} from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
+    navigate("/auth");
+  };
+
   return (
     <Container
       fluid
@@ -16,6 +27,8 @@ const Header = () => {
       style={{
         borderBottom: "1px solid lightGrey",
         zIndex: 1,
+
+        height: "8vh",
       }}
     >
       <Row className="align-items-center" style={{ height: "7vh" }}>
@@ -24,7 +37,7 @@ const Header = () => {
             icon={faBars}
             style={{ fontSize: "40px", color: "grey" }}
           />
-          <h1 style={{ color: "grey" }}>Gmail</h1>
+          <h1 style={{ color: "grey" }}>xmail</h1>
         </Col>
         <Col
           xs={4}
@@ -38,9 +51,7 @@ const Header = () => {
           </InputGroup>
         </Col>
         <Col xs={4} className="d-flex justify-content-end gap-1">
-          <FontAwesomeIcon icon={faTrash} />
-          <FontAwesomeIcon icon={faBell} />
-          <FontAwesomeIcon icon={faCloud} />
+          <Button onClick={logoutHandler}>Logout</Button>
         </Col>
       </Row>
     </Container>

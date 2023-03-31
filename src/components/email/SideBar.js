@@ -7,9 +7,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Button, Nav } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const SideBar = () => {
+  const Unread = useSelector((state) => state.email.email);
   const navigate = useNavigate();
   return (
     <div
@@ -18,7 +20,7 @@ const SideBar = () => {
         top: "7vh",
         display: "flex",
         flexDirection: "column",
-        width: "20%",
+        width: "10rem",
       }}
     >
       <Button
@@ -52,7 +54,11 @@ const SideBar = () => {
       >
         <FontAwesomeIcon icon={faEnvelope} />
         <span>Inbox</span>{" "}
-        <span style={{ marginLeft: "1rem", color: "red" }}>45</span>
+        <span style={{ marginLeft: "1rem", color: "red" }}>
+          {Unread.length > 0
+            ? Unread.filter((ur) => ur.read !== true).length
+            : ""}
+        </span>
       </Nav.Link>
       <Nav.Link
         as={Link}

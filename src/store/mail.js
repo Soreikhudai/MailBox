@@ -23,13 +23,6 @@ const emailSlice = createSlice({
       // Set expenses fetched from backend to the state
       state.email = action.payload;
     },
-
-    openSendEmail(state) {
-      state.sendMessageIsOpen = true;
-    },
-    closeSendEmail(state) {
-      state.sendMessageIsOpen = false;
-    },
   },
 });
 
@@ -41,5 +34,6 @@ export const {
   closeSendEmail,
 } = emailSlice.actions;
 export const selectSendMessageIsOpen = (state) => state.email.sendMessageIsOpen;
+export const emailActions = emailSlice.actions;
 
 export default emailSlice.reducer;

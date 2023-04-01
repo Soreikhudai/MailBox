@@ -24,7 +24,7 @@ const ViewPage = () => {
       style={{ width: "100%", height: "95%" }}
       className="mb-2 mt-3"
     >
-      {Email.filter((item) => item.id === itemID).map((email) => (
+      {Email.filter((item) => item.id === itemID).map((email, key) => (
         <>
           <Card.Header>
             {email?.subject}

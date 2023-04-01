@@ -12,11 +12,11 @@ import { getAuth } from "firebase/auth";
 const SendForm = () => {
   const dispatch = useDispatch();
   const auth = getAuth();
-  const [editorState, setEditorState] = useState();
   const [recepient, setRecepient] = useState("");
   const [subject, setSubject] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const onEditorStateChange = (newEditorState) => {
     setEditorState(newEditorState);
@@ -37,7 +37,7 @@ const SendForm = () => {
 
     try {
       await fetch(
-        `https://react-http-project-da8f6-default-rtdb.firebaseio.com/emails/sent/${btoa(
+        `https://mailproject-5c142-default-rtdb.firebaseio.com/emails/sent/${btoa(
           auth.currentUser.email
         )}/${btoa(recepient)}.json`,
         {
@@ -54,7 +54,7 @@ const SendForm = () => {
 
         //-----------------------------------------------------//
         await fetch(
-          `https://react-http-project-da8f6-default-rtdb.firebaseio.com/emails/received/${btoa(
+          `https://mailproject-5c142-default-rtdb.firebaseio.com/emails/received/${btoa(
             recepient
           )}/${btoa(auth.currentUser.email)}.json`,
           {

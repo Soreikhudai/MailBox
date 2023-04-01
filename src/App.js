@@ -5,7 +5,7 @@ import HomePage from "./pages/HomePage";
 import ResetPage from "./pages/ResetPage";
 import EmailPage from "./pages/EmailPage";
 import FormPage from "./pages/FormPage";
-
+import EmailSentPage from "./pages/EmailSentPage";
 const App = () => {
   const isAuthenticate = useSelector((state) => state.auth.isAuthenticated);
   return (
@@ -21,6 +21,11 @@ const App = () => {
           {isAuthenticate && (
             <Route path="/inbox/item/*" element={<EmailPage />} />
           )}
+          {isAuthenticate && <Route path="/sent" element={<EmailSentPage />} />}
+          {isAuthenticate && (
+            <Route path="/sent/item/*" element={<EmailSentPage />} />
+          )}
+
           <Route path="*" element={<HomePage />} />
         </Routes>
       </BrowserRouter>

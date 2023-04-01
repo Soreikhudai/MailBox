@@ -1,32 +1,26 @@
-import { useState, useEffect } from "react";
-
 import {
   getDatabase,
   ref,
   onChildAdded,
-  set,
   query,
   orderByChild,
   remove,
 } from "firebase/database";
+import { faPaperPlane, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./EmailList.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faEnvelopeOpen,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setEmail } from "../../store/mail";
+import { setSent } from "../../store/mail";
 import ViewPage from "./ViewPage";
 import { firebaseData } from "../../firebase";
 
 var dataArray = [];
 var allMails = [];
 
-const EmailList = () => {
+const SentEmailList = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.has("id") ? searchParams.get("id") : ""; // "react"
@@ -49,7 +43,7 @@ const EmailList = () => {
 
           onChildAdded(
             query(
-              ref(db, `emails/received/${btoa(user.email)}`),
+              ref(db, `emails/sent/${btoa(user.email)}`),
               orderByChild("timestamp")
             ),
             (snapshot) => {
@@ -58,7 +52,7 @@ const EmailList = () => {
               dataArray.forEach((item) =>
                 onChildAdded(
                   query(
-                    ref(db, `emails/received/${btoa(user.email)}/${item.id}`),
+                    ref(db, `emails/sent/${btoa(user.email)}/${item.id}`),
                     orderByChild("timestamp")
                   ),
                   (snapshot) => {
@@ -71,7 +65,7 @@ const EmailList = () => {
                     // Sort the emails by timestamp in descending order (newest to oldest)
                     allMails.sort((a, b) => b.timestamp - a.timestamp);
                     setEmails(allMails);
-                    dispatch(setEmail(allMails));
+                    dispatch(setSent(allMails));
                     setIsUpdate(false);
                   }
                 )
@@ -87,52 +81,17 @@ const EmailList = () => {
     isUpdate === true && getData();
   }, [auth, isUpdate, dispatch]);
 
-  const markAsRead = (email) => {
-    const user = auth.currentUser;
-    if (!user) {
-      return;
-    }
-    let uDetails = {
-      ...email,
-      read: true,
-    };
-    onChildAdded(
-      ref(db, `/emails/received/${btoa(user.email)}/${email.from}`),
-      async (snapshot) => {
-        const item = snapshot.val();
-        if (item.id === email.id) {
-          // Updating  the item in the database
-          const itemRef = ref(
-            db,
-            `/emails/received/${btoa(user.email)}/${email.from}/${snapshot.key}`
-          );
-          set(itemRef, uDetails)
-            .then(() => {
-              console.log("Updated");
-              setIsUpdate(true);
-            })
-            .catch((error) => {
-              console.error("Error updating item: ", error);
-            });
-        }
-      }
-    );
-  };
-
   const deleteHandler = async (email) => {
     try {
       onChildAdded(
-        ref(
-          db,
-          `/emails/received/${btoa(auth.currentUser.email)}/${email.from}`
-        ),
+        ref(db, `/emails/sent/${btoa(auth.currentUser.email)}/${email.from}`),
         async (snapshot) => {
           const item = snapshot.val();
           if (item.id === email.id) {
             // Updating  the item in the database
             const itemRef = ref(
               db,
-              `/emails/received/${btoa(auth.currentUser.email)}/${email.from}/${
+              `/emails/sent/${btoa(auth.currentUser.email)}/${email.from}/${
                 snapshot.key
               }`
             );
@@ -165,13 +124,9 @@ const EmailList = () => {
               )
               .sort((a, b) => new Date(b.timeStamp) - new Date(a.timeStamp))
               .map((email, key) => (
-                <div
-                  className={`aUserSecret mb-3`}
-                  key={key}
-                  onClick={() => markAsRead(email)}
-                >
+                <div className={`aUserSecret mb-3`} key={key}>
                   <FontAwesomeIcon
-                    icon={email.read === true ? faEnvelopeOpen : faEnvelope}
+                    icon={faPaperPlane}
                     style={{
                       fontSize: "15px",
                     }}
@@ -179,7 +134,7 @@ const EmailList = () => {
 
                   <Link
                     className="m-0"
-                    to={`/inbox/item?id=${email.id}&type=inbox`}
+                    to={`/sent/item?id=${email.id}`}
                     style={{
                       color: email.read === true ? "grey" : "blue",
                     }}
@@ -202,4 +157,4 @@ const EmailList = () => {
   );
 };
 
-export default EmailList;
+export default SentEmailList;

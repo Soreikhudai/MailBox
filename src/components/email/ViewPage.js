@@ -10,7 +10,7 @@ const ViewPage = () => {
   const navigate = useNavigate();
   const Email = useSelector((state) => state.email.email);
   const itemID = searchParams.get("id");
-
+  const type = searchParams.get("type");
   //get the id value from param (http://localhost:3000/inbox/item?id=lmvv3m7i) let id=lmvv3m7i
   //filter by id and get the item from email (useSelector) using param id
   //use map and display it in the browser
@@ -24,20 +24,26 @@ const ViewPage = () => {
       style={{ width: "100%", height: "95%" }}
       className="mb-2 mt-3"
     >
-      {Email.filter((item) => item.id === itemID).map((email, key) => (
-        <>
-          <Card.Header>
-            {email?.subject}
+      {Email.filter(
+        (obj, index, self) => index === self.findIndex((t) => t.id === obj.id)
+      )
+        .filter((item) => item.id === itemID)
+        .map((email) => (
+          <>
+            <Card.Header>
+              {email?.subject}
 
-            <Card.Title>From: {atob(email?.from)}</Card.Title>
-          </Card.Header>
+              <Card.Title>
+                {type === "inbox" ? "From :" : "To :"} {atob(email?.from)}
+              </Card.Title>
+            </Card.Header>
 
-          <Card.Body>
-            <Card.Text>{email?.timeStamp}</Card.Text>
-            <Card.Text>{email?.message}</Card.Text>
-          </Card.Body>
-        </>
-      ))}
+            <Card.Body>
+              <Card.Text>{email?.timeStamp}</Card.Text>
+              <Card.Text>{email?.message}</Card.Text>
+            </Card.Body>
+          </>
+        ))}
 
       <Button
         onClick={replyHandler}

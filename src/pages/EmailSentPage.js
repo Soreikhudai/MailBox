@@ -1,8 +1,8 @@
-import MainInboxPage from "../components/email/MainInboxPage";
+import MainSentPage from "../components/email/MainSentPage";
 import SideBar from "../components/email/SideBar";
 import Header from "../components/header/Header";
 
-const EmailPage = () => {
+const EmailSentPage = () => {
   return (
     <>
       <Header />
@@ -11,9 +11,9 @@ const EmailPage = () => {
         style={{ display: "flex", boxShadow: "grey 0px 2px 6px 5px" }}
       >
         <SideBar />
-        <MainInboxPage />
+        <MainSentPage />
       </div>
     </>
   );
 };
-export default EmailPage;
+export default EmailSentPage;

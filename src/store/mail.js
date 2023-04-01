@@ -23,6 +23,10 @@ const emailSlice = createSlice({
       // Set expenses fetched from backend to the state
       state.email = action.payload;
     },
+    setSent(state, action) {
+      // Set expenses fetched from backend to the state
+      state.sent = action.payload;
+    },
   },
 });
 
@@ -30,6 +34,7 @@ export const {
   addEmail,
   deleteEmail,
   setEmail,
+  setSent,
   openSendEmail,
   closeSendEmail,
 } = emailSlice.actions;

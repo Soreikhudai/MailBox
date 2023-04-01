@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
-import EmailList from "./EmailList";
+import SentEmailList from "./SendList";
 
-const MainPage = () => {
+const MainSentPage = () => {
   return (
     <>
       <Container
@@ -13,10 +13,10 @@ const MainPage = () => {
           boxShadow: "grey 0px 0px 3px 2px",
         }}
       >
-        <EmailList />
+        <SentEmailList />
       </Container>
     </>
   );
 };
 
-export default MainPage;
+export default MainSentPage;
